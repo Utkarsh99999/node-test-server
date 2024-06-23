@@ -13,8 +13,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 const corsOptions = {
-  // origin: 'http://localhost:3001',
-  origin: 'https://next-table-psi.vercel.app',
+  origin: 'http://localhost:3001',
+  // origin: 'https://next-table-psi.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
@@ -29,7 +29,7 @@ async function initializeDatabase() {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    // console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB');
     // const count = await User.countDocuments();
     // if (count === 0) {
     //   const data = JSON.parse(await fs.promises.readFile('./data.json', 'utf-8'));
