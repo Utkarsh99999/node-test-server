@@ -15,10 +15,7 @@ app.use(bodyParser.json());
 const corsOptions = {
   origin: 'http://localhost:3001',
   // origin: 'https://next-table-psi.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
-  credentials: true
 };
 app.use(cors(corsOptions));
 
