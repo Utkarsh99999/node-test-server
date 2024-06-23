@@ -8,6 +8,7 @@ import fs from 'fs';
 const app = express();
 const PORT = 3000;
 
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,14 +21,14 @@ async function initializeDatabase() {
       useUnifiedTopology: true
     });
     console.log('Connected to MongoDB');
-    const count = await User.countDocuments();
-    if (count === 0) {
-      const data = JSON.parse(await fs.promises.readFile('./data.json', 'utf-8'));
-      await User.insertMany(data);
-      console.log('Data imported successfully');
-    } else {
-      console.log('Data already exists, skipping import');
-    }
+    // const count = await User.countDocuments();
+    // if (count === 0) {
+    //   const data = JSON.parse(await fs.promises.readFile('./data.json', 'utf-8'));
+    //   await User.insertMany(data);
+    //   console.log('Data imported successfully');
+    // } else {
+    //   console.log('Data already exists, skipping import');
+    // }
   } catch (error) {
     console.error('Error connecting to MongoDB or importing data', error);
   }
