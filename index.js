@@ -13,8 +13,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 const corsOptions = {
-  // origin: 'http://localhost:3001',
-  origin: 'https://next-table-psi.vercel.app',
+  origin: 'http://localhost:3001',
+  // origin: 'https://next-table-psi.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
@@ -47,6 +47,15 @@ async function initializeDatabase() {
 initializeDatabase();
 // Get all users
 
+
+app.get('/', async (req, res) => {
+  try {
+    res.status(200).send("Server Working properly ");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.post('/update/user', async (req, res) => {
   try {
     const users = await User.findOneAndUpdate({_id:req.body._id},req.body);
@@ -65,52 +74,12 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/', async (req, res) => {
-  try {
-    res.status(200).send("Server Working properly ");
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Get user by ID
-app.get('/users/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findOne({ id });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ error: 'User not found' });
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Update user by ID
-app.put('/users/:id', async (req, res) => {
-  const { id } = req.params;
-  const updates = req.body;
-  try {
-    const user = await User.findOneAndUpdate({ id }, updates, { new: true });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json({ error: 'User not found' });
-    }
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
 // Delete user by ID
-app.delete('/users/:id', async (req, res) => {
-  const { id } = req.params;
+app.post('/users/delete', async (req, res) => {
   try {
-    const user = await User.findOneAndDelete({ id });
+    const user = await User.deleteOne({ _id:req.body_id});
     if (user) {
-      res.status(200).json({ message: 'User deleted successfully' });
+      res.status(200).json({ message: 'User deleted successfully',status:true });
     } else {
       res.status(404).json({ error: 'User not found' });
     }
