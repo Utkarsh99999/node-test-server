@@ -46,6 +46,14 @@ app.get('/users', async (req, res) => {
   }
 });
 
+app.get('/', async (req, res) => {
+  try {
+    res.status(200).send("Server Working properly ");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // Get user by ID
 app.get('/users/:id', async (req, res) => {
   const { id } = req.params;
