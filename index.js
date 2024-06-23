@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import User from './models/userModel.js';
-// import fs from 'fs';
+import fs from 'fs';
 
 const app = express();
 const PORT = 3000;
@@ -13,20 +13,23 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3001',
-  origin: 'https://next-table-psi.vercel.app/',
-  optionsSuccessStatus: 200
+  // origin: 'http://localhost:3001',
+  origin: 'https://next-table-psi.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
+  credentials: true
 };
 app.use(cors(corsOptions));
 
 // Connect to MongoDB
 async function initializeDatabase() {
   try {
-    await mongoose.connect('mongodb+srv://91uttkarsh:Utkarsh%40123@cluster0.haabqcz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/userdb', {
+    await mongoose.connect('mongodb+srv://91uttkarsh:Utkarsh%40123@cluster0.haabqcz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/test', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    console.log('Connected to MongoDB');
+    // console.log('Connected to MongoDB');
     // const count = await User.countDocuments();
     // if (count === 0) {
     //   const data = JSON.parse(await fs.promises.readFile('./data.json', 'utf-8'));
@@ -43,10 +46,20 @@ async function initializeDatabase() {
 
 initializeDatabase();
 // Get all users
+
+app.post('/update/user', async (req, res) => {
+  try {
+    const users = await User.findOneAndUpdate({_id:req.body._id},req.body);
+    return res.status(200).json({message:"User Updated",status:true});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
-    res.status(200).json(users);
+   return res.status(200).json({users:users});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
