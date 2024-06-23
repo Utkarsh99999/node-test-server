@@ -13,8 +13,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3001',
-  // origin: 'https://next-table-psi.vercel.app',
+  // origin: 'http://localhost:3001',
+  origin: 'https://next-table-psi.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
