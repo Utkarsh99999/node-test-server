@@ -1,4 +1,4 @@
-import express from 'express';
+// import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -13,8 +13,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3001',
-  // origin: 'https://next-table-psi.vercel.app',
+  // origin: 'http://localhost:3001',
+  origin: 'https://next-table-psi.vercel.app',
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
