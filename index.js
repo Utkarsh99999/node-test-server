@@ -12,11 +12,19 @@ const PORT = 3000;
 // Middleware
 app.use(bodyParser.json());
 
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3000','https://next-table-psi.vercel.app'];
+
 const corsOptions = {
-  // origin: 'http://localhost:3001',
-  origin: 'https://next-table-psi.vercel.app',
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   optionsSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 
 // Connect to MongoDB
