@@ -6,13 +6,13 @@ import User from './models/userModel.js';
 import fs from 'fs';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 
 // Middleware
 app.use(bodyParser.json());
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:3000','https://next-table-psi.vercel.app'];
+const allowedOrigins = ['http://localhost:3000','https://next-table-psi.vercel.app', 'http://localhost:3001'];
 
 const corsOptions = {
   origin: (origin, callback) => {
